@@ -151,7 +151,7 @@
     display: flex;
     flex-direction: column;
     max-width: 70%;
-    width: max-content;
+    width: 100%;
   }
   
   .message-row.user {
@@ -169,6 +169,11 @@
     border-radius: 18px;
     font-size: 14px;
     line-height: 1.5;
+  }
+
+  .message-bubble p {
+    white-space: pre-wrap; /* 💡 Conserva saltos de línea del agente y evita el colapso horizontal */
+    word-break: break-word; /* 💡 Corta de forma segura palabras ultra largas si las hubiera */
   }
   
   .user .message-bubble {
