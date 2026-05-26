@@ -11,8 +11,8 @@ export default function ChatContainer() {
     {
       id: 1,
       sender: "agent",
-      text: "¡Hola! He logrado conectarme con éxito desde tu flujo de automatización. ¿En qué puedo asistirte hoy?",
-      time: "11:40 AM",
+      text: "¡Hola! 👋 Soy Choco, tu asistente virtual de Recursos Humanos. Por favor, para comenzar, decime tu nombre y apellido completo.",
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
 
