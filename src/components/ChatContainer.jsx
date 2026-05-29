@@ -329,6 +329,18 @@ export default function ChatContainer() {
     }
   }, [showInfoModal]);
 
+  useEffect(() => {
+  const handleResize = () => {
+    // Pequeño timeout para esperar a que el teclado termine de animar su apertura
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 300);
+  };
+
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
   return (
     <div className="app-container">
       <aside className="sidebar">

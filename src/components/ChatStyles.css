@@ -134,6 +134,23 @@
    ========================================================================== */
 
 @media (width <= 600px) {
+
+  .chat-workspace {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh; /* Usamos dvh */
+  width: 100%;
+  overflow: hidden; /* Importante para que el scroll esté contenido */
+}
+
+.messages-container {
+  flex: 1; /* Esto hace que los mensajes ocupen todo el espacio disponible */
+  overflow-y: auto; /* Scroll propio */
+  padding: 20px;
+  min-height: 200px;
+}
+
+
   .sidebar {
     display: none;
   }
