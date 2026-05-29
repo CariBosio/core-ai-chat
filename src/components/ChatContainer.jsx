@@ -332,6 +332,25 @@ export default function ChatContainer() {
     }
   }, [showInfoModal]);
 
+  const handleGoodbyeTimeUpdate = () => {
+    if (chocoGoodbyeRef.current) {
+      const video = chocoGoodbyeRef.current;
+      const { currentTime, duration } = video;
+
+      if (currentTime >= 6.5) {
+        setShowRestartButton(true);
+      }
+
+      const fadeDuration = 3;
+      if (duration - currentTime < fadeDuration) {
+        const newVolume = Math.max(0, (duration - currentTime) / fadeDuration);
+        video.volume = newVolume;
+      } else {
+        if (video.volume !== 1.0) video.volume = 1.0;
+      }
+    }
+  };
+
   return (
     <div className="app-container">
       <aside className="sidebar">
