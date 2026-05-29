@@ -9,6 +9,17 @@
   --msg-user: #2563eb;
   --msg-agent: #334155;
   --border-color: #334155;
+  --logo-primary: #7b4930;
+  --logo-second: #ffd3a1;
+  --logo-stroke: #fbbd89;
+  --logo-gradient: linear-gradient(
+    to top,
+    var(--logo-primary) 30%,
+    var(--logo-second) 100%
+  );
+
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app-container {
@@ -20,7 +31,10 @@
   overflow: hidden;
 }
 
-/* Sidebar Styling */
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+
 .sidebar {
   width: 200px;
   background-color: #151f32;
@@ -31,103 +45,29 @@
   justify-content: space-between;
 }
 
-/* 1. Definimos el botón oculto por defecto con !important */
 .info-trigger {
-  /* Oculto, pero presente para el DOM */
   visibility: hidden;
   opacity: 0;
-
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  width: 32px;
-  height: 32px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--accent-color); /* Usamos tu variable de color */
-  color: var(--accent-color);
-  border-radius: 50%;
-  font-family: monospace;
-  font-weight: bold;
-  cursor: pointer;
-
-  /* Centrado con flexbox */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* Transición de visibilidad y hover */
-  transition: all 0.3s ease;
-}
-
-.info-trigger:hover {
-  background: var(--accent-color);
-  color: var(--bg-main);
-  transform: scale(1.1);
-  box-shadow: 0 0 10px var(--accent-color);
-}
-
-/* 2. En mobile, lo mostramos como flex para que el centrado funcione */
-@media (max-width: 600px) {
-  .sidebar {
-    display: none;
-  }
-
-  .info-trigger {
-    visibility: visible;
-    opacity: 1;
-  }
-}
-
-/* Overlay que cubre la pantalla completa en móvil */
-.info-overlay {
-  position: fixed; /* Se fija a la ventana del navegador */
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(11, 15, 25, 0.92);
-  backdrop-filter: blur(6px); /* Efecto difuminado moderno */
-  z-index: 9999; /* Se posiciona por encima de cualquier otra capa */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-/* Tarjeta contenedora de la info */
-.sidebar-mobile {
-  position: relative;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  width: 85%;
-  max-width: 340px;
-  border-radius: 16px;
-  padding: 28px;
-  cursor: default; /* Evita que se cierre al hacer click adentro */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-.close-sidebar {
-  position: absolute;
-  top: 1rem;
+  top: 1.2rem;
   right: 1rem;
   width: 24px;
   height: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--accent-color); /* Usamos tu variable de color */
   color: var(--accent-color);
+  background: transparent;
+  border: none;
+  outline: none;
+
   border-radius: 50%;
-  font-family: monospace;
-  font-weight: bold;
   cursor: pointer;
-
-  /* Centrado con flexbox */
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
-
-  /* Transición de visibilidad y hover */
+  justify-content: center; */
   transition: all 0.3s ease;
+}
+
+.info-trigger:is(:active, :focus, :focus-visible, :focus-within, :hover) {
+  box-shadow: 0 0 10px var(--accent-color);
 }
 
 .project-title {
@@ -188,7 +128,88 @@
   line-height: 1.5;
 }
 
-/* Chat Main Area */
+/* ==========================================================================
+   RESPONSIVE SIDEBAR
+   ========================================================================== */
+
+@media (width <= 600px) {
+  .sidebar {
+    display: none;
+  }
+
+  .chat-header {
+    padding: 20px 12px;
+  }
+
+  .info-trigger {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.info-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 15, 25, 0.92);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.info-overlay P {
+  color: var(--text-secondary);
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.sidebar-mobile {
+  position: relative;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  width: 85%;
+  max-width: 340px;
+  border-radius: 16px;
+  padding: 28px;
+  cursor: default;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-mobile h3 {
+  color: var(--accent-color);
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+}
+
+.close-sidebar {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 24px;
+  height: 24px;
+  color: var(--accent-color);
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-trigger:is(:active, :focus, :focus-visible, :focus-within, :hover) {
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* ==========================================================================
+   CHAT MAIN AREA
+   ========================================================================== */
+
 .chat-workspace {
   flex: 1;
   background-color: var(--bg-chat);
@@ -213,9 +234,30 @@
 }
 
 .agent-profile h2 {
-  font-size: 16px;
+  font-size: clamp(0.75rem, 0.692rem + 0.26vw, 1rem);
   font-weight: 600;
   color: #e2f0e6;
+  letter-spacing: 0.5px;
+}
+
+.chocola-part {
+  font-size: clamp(1.2rem, 1.015rem + 0.82vw, 2rem);
+  font-weight: 900;
+  color: var(--logo-primary);
+}
+
+.tech-container {
+  display: inline-block;
+  filter: drop-shadow(0 0 8px var(--logo-stroke));
+}
+
+.tech-part {
+  font-size: clamp(1.2rem, 1.015rem + 0.82vw, 2rem);
+  font-weight: 900;
+  background: var(--logo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px var(--logo-stroke);
 }
 
 .agent-profile p {
@@ -247,7 +289,10 @@
   }
 }
 
-/* Messages Stream */
+/* ==========================================================================
+   MESSAGES STREAM
+   ========================================================================== */
+
 .messages-container {
   position: relative;
   flex: 1;
@@ -288,13 +333,11 @@
   border-radius: 18px;
   font-size: 14px;
   line-height: 1.5;
-  transition: background-color 0.2s ease; /* 💡 CAMBIO: Suaviza la transición cromática si cambia el fondo */
+  transition: background-color 0.2s ease;
 }
 
-/* 💡 CAMBIO CRÍTICO: Evitamos que la inyección brusca de texto rompa el layout hacia arriba.
-Forzamos a que el párrafo del texto final nazca contenido de forma transparente 
-mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
 .message-bubble p {
+  font-size: clamp(0.75rem, 0.721rem + 0.13vw, 0.875rem);
   white-space: pre-wrap;
   word-break: break-word;
   margin: 0;
@@ -319,7 +362,10 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   margin-top: 6px;
 }
 
-/* Footer & Input Controls */
+/* ==========================================================================
+   FOOTER & INPUT CONTROLS
+   ========================================================================== */
+
 .chat-footer {
   padding: 24px 32px;
   background-color: rgba(11, 15, 25, 0.8);
@@ -389,7 +435,7 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
 }
 
 /* ==========================================================================
-   ANIMACIÓN Y FLUJO DEL AGENTE (CHOCO EXCLUSIVE)
+   AGENT FLOW AND ANIMATION (CHOCO EXCLUSIVE)
    ========================================================================== */
 
 .choco-permanent-fly-avatar {
@@ -398,9 +444,9 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   left: calc(50% - 200px);
   width: 400px;
   height: 400px;
-  border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  clip-path: circle(40% at 50% 50%);
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
   z-index: 999;
 }
 
@@ -420,14 +466,11 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   width: 100%;
   height: 100%;
   object-fit: cover;
-
-  /* 💡 TRUCO DE RENDER: Fuerza al navegador a usar aceleración 3D y suavizado de píxeles */
-  transform: translateZ(0);
+  transform: scale(1.22) translateZ(0);
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
   backface-visibility: hidden;
   will-change: transform;
-
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
@@ -436,11 +479,9 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform: scale(1.22);
 }
 
-/* 💡 CAMBIO ESTRUCTURAL CRÍTICO: Eliminamos el 'height' fijo estricto de 47px.
-   En su lugar, usamos 'min-height'. Al mutar el estado de carga, la caja no colapsa 
-   ni da un latigazo vertical brusco, permitiendo que la transición en el JS se encargue del flujo. */
 .typing-bubble {
   display: flex !important;
   align-items: center;
@@ -449,7 +490,7 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   box-sizing: border-box;
 }
 
-/* Indicador y sus tres puntos */
+/* Indicator and its three points */
 .typing-indicator {
   display: flex;
   align-items: center;
@@ -486,7 +527,7 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   }
 }
 
-/* Simulador invisible de la hora para la caja de carga */
+/* Invisible time simulator for the cargo box */
 .typing-row .message-bubble-wrapper::after {
   content: "";
   display: block;
@@ -494,7 +535,7 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   margin-top: 6px;
 }
 
-/* Contenedor relativo para posicionar el botón arriba del video congelado */
+/* Relative container to position the button on top of the frozen video */
 .preload-overlay {
   position: absolute;
   top: 0;
@@ -507,12 +548,10 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   z-index: 1000;
 }
 
-/* Botón flotante estilizado acoplado al diseño */
+/* Stylized floating button integrated with the design */
 .start-experience-button {
   position: absolute;
-  top: calc(
-    50% + 240px
-  ); /* Se posiciona milimétricamente abajo del círculo de 400px */
+  top: calc(50% + 240px);
   background: var(--accent-gradient);
   color: #ffffff;
   border: none;
@@ -551,19 +590,30 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   pointer-events: none;
 }
 
-.choco-goodbye-avatar {
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-  transform-origin: center center;
+.goodbye-overlay video {
+  position: absolute;
+  top: 135px;
+  left: 32px;
+  width: 44px;
+  height: 44px;
+  opacity: 0;
 }
 
-/* 💡 NUEVO: Botón interactivo para romper el bucle de despedida */
+.choco-goodbye-avatar {
+  position: absolute;
+  top: calc(50% - 200px);
+  left: calc(50% - 200px);
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  clip-path: circle(38% at 50% 50%);
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+  z-index: 999;
+}
+
 .restart-chat-button {
   position: absolute;
-  top: calc(
-    50% + 240px
-  ); /* Calza perfecto abajo de la circunferencia de 400px */
+  top: calc(50% + 240px);
   background: var(--accent-gradient);
   color: #ffffff;
   border: none;
@@ -573,7 +623,7 @@ mientras la callback de GSAP recalcula y expande la burbuja con suavidad. */
   border-radius: 30px;
   cursor: pointer;
   box-shadow: 0 8px 25px rgba(56, 189, 248, 0.35);
-  pointer-events: auto; /* IMPORTANTE: Permite que reciba clicks sobre la capa difuminada */
+  pointer-events: auto;
   transition:
     transform 0.2s,
     box-shadow 0.2s;

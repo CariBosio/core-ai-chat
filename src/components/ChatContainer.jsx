@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import { Info, CircleX } from "lucide-react";
 import "./ChatStyles.css";
 
-import chocoVideoWelcome from "../assets/Choco_welcome_square.mp4";
-import chocoVideoGoodbye from "../assets/Choco_goodbye_square.mp4";
+import chocoVideoWelcome from "../assets/Animated_avatar_3.mp4";
+import chocoVideoGoodbye from "../assets/Choco_goodbye.mp4";
 import chocoStaticAvatarIcon from "../assets/Choco_frame.png";
 
 const N8N_WEBHOOK_URL =
@@ -275,37 +276,29 @@ export default function ChatContainer() {
   useEffect(() => {
     if (!modalRef.current) return;
 
-    // Buscamos el panel interno para animarlo de forma independiente
     const sidebarMobile = modalRef.current.querySelector(".sidebar-mobile");
 
     if (showInfoModal) {
-      // 🚀 ANIMACIÓN DE ENTRADA
-      // 1. Forzamos a que el contenedor principal sea visible
       gsap.set(modalRef.current, { display: "flex" });
 
-      // 2. Animamos el fondo negro (fade in)
       gsap.to(modalRef.current, {
         opacity: 1,
         duration: 0.3,
         ease: "power2.out",
       });
 
-      // 3. El panel lateral aparece desde la derecha con un leve rebote
       gsap.fromTo(
         sidebarMobile,
         { x: "100%" },
         { x: "0%", duration: 0.5, ease: "back.out(1)" },
       );
     } else {
-      // 🍂 ANIMACIÓN DE SALIDA
       const tl = gsap.timeline({
         onComplete: () => {
-          // Cuando termina de ocultarse, lo sacamos del flujo visual
           gsap.set(modalRef.current, { display: "none" });
         },
       });
 
-      // El panel se va a la derecha y el fondo se desvanece en simultáneo
       tl.to(
         sidebarMobile,
         { x: "100%", duration: 0.4, ease: "power2.in" },
@@ -345,8 +338,8 @@ export default function ChatContainer() {
         </div>
         <footer className="sidebar-footer">
           <p>
-            Interfaz customizada lista para pruebas en vivo de agentes de IA
-            aplicados a Recursos Humanos.
+            Asistente virtual autónomo para la gestión de consultas de Recursos
+            Humanos en ChocolaTech.
           </p>
         </footer>
       </aside>
@@ -356,7 +349,12 @@ export default function ChatContainer() {
           <div className="agent-profile">
             <div className="pulse-indicator"></div>
             <div>
-              <h2>Agente Autónomo - ChocolaTech</h2>
+              <h2>
+                Agente Autónomo -<span className="chocola-part"> Chocola</span>
+                <div className="tech-container">
+                  <span className="tech-part">Tech</span>
+                </div>
+              </h2>
               <p>
                 {introStage === "goodbye"
                   ? "Conversación finalizada"
@@ -366,7 +364,7 @@ export default function ChatContainer() {
               </p>
             </div>
           </div>
-          {/* 👁️ Opcional 1: El botón "i" SOLO aparece cuando ya se puede chatear */}
+
           {introStage === "chat" && (
             <button
               type="button"
@@ -376,20 +374,23 @@ export default function ChatContainer() {
                 setShowInfoModal(true);
               }}
             >
-              i
+              <Info size={24} strokeWidth={1} />
             </button>
           )}
         </header>
 
-        {/* ESTADO PRELOAD */}
+        {/* PRELOAD STATE */}
         {introStage === "preload" && (
           <div className="preload-overlay">
-            <video
-              src={chocoVideoWelcome}
-              muted
-              playsInline
-              className="choco-permanent-fly-avatar"
-            />
+           
+              <video
+                src={chocoVideoWelcome}
+                muted
+                playsInline
+                className="choco-permanent-fly-avatar"
+              />
+          
+
             <button
               type="button"
               className="start-experience-button"
@@ -400,7 +401,7 @@ export default function ChatContainer() {
           </div>
         )}
 
-        {/* ESTADO WELCOME */}
+        {/* WELCOME STATE */}
         {introStage === "welcome" && (
           <video
             ref={chocoVideoRef}
@@ -411,7 +412,7 @@ export default function ChatContainer() {
           />
         )}
 
-        {/* ESTADO GOODBYE */}
+        {/* GOODBYE STATE */}
         {introStage === "goodbye" && (
           <div className="goodbye-overlay">
             <video
@@ -420,14 +421,6 @@ export default function ChatContainer() {
               playsInline
               className="choco-goodbye-avatar"
               onTimeUpdate={handleGoodbyeTimeUpdate}
-              style={{
-                position: "absolute",
-                top: "135px",
-                left: "32px",
-                width: "44px",
-                height: "44px",
-                opacity: 0,
-              }}
             />
 
             {showRestartButton && (
@@ -486,54 +479,57 @@ export default function ChatContainer() {
           <div ref={messagesEndRef} />
         </div>
 
-        <footer className="chat-footer">
-          <form onSubmit={handleSend} className="input-wrapper">
-            <input
-              ref={inputRef}
-              type="text"
-              className="chat-input"
-              onKeyDown={resetInactivityTimer}
-              placeholder={
-                introStage === "goodbye"
-                  ? "Sesión finalizada."
-                  : "Escribe un mensaje para el agente..."
-              }
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              disabled={
-                isTyping ||
-                introStage === "welcome" ||
-                introStage === "preload" ||
-                introStage === "goodbye"
-              }
-            />
-            <button
-              type="submit"
-              className="send-button"
-              disabled={!inputValue.trim() || isTyping || introStage !== "chat"}
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
+        {introStage === "chat" && (
+          <footer className="chat-footer">
+            <form onSubmit={handleSend} className="input-wrapper">
+              <input
+                ref={inputRef}
+                type="text"
+                className="chat-input"
+                onKeyDown={resetInactivityTimer}
+                placeholder={
+                  introStage === "goodbye"
+                    ? "Sesión finalizada."
+                    : "Escribe un mensaje para el agente..."
+                }
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                disabled={
+                  isTyping ||
+                  introStage === "welcome" ||
+                  introStage === "preload" ||
+                  introStage === "goodbye"
+                }
+              />
+              <button
+                type="submit"
+                className="send-button"
+                disabled={
+                  !inputValue.trim() || isTyping || introStage !== "chat"
+                }
               >
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
-            </button>
-          </form>
-        </footer>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </form>
+          </footer>
+        )}
       </main>
 
-      {/* 💡 CORRECCIÓN CRÍTICA: El modal ahora vive en la raíz del app-container */}
       <div
         ref={modalRef}
         className="info-overlay"
         onClick={() => setShowInfoModal(false)}
-        style={{ display: "none", opacity: 0 }} // Arranca oculto
+        style={{ display: "none", opacity: 0 }}
       >
         <aside className="sidebar-mobile" onClick={(e) => e.stopPropagation()}>
           <button
@@ -541,17 +537,9 @@ export default function ChatContainer() {
             className="close-sidebar"
             onClick={() => setShowInfoModal(false)}
           >
-            X
+            <CircleX size={24} strokeWidth={1.5} />
           </button>
-          <h3
-            style={{
-              color: "var(--accent-color)",
-              marginBottom: "16px",
-              fontSize: "1.2rem",
-            }}
-          >
-            Información del Sistema
-          </h3>
+          <h3>Información del Sistema</h3>
           <div className="meta-group">
             <div className="meta-item">
               <span className="meta-label">Orquestador</span>
@@ -570,16 +558,9 @@ export default function ChatContainer() {
               <span className="meta-value">GSAP / CSS</span>
             </div>
           </div>
-          <p
-            style={{
-              color: "var(--text-secondary)",
-              marginTop: "20px",
-              fontSize: "14px",
-              lineHeight: "1.5",
-            }}
-          >
-            Core.AI - Asistente virtual autónomo para la gestión de consultas de
-            Recursos Humanos en ChocolaTech.
+          <p>
+            Asistente virtual autónomo para la gestión de consultas de Recursos
+            Humanos en ChocolaTech.
           </p>
         </aside>
       </div>
