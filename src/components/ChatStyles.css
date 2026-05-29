@@ -133,7 +133,6 @@
    RESPONSIVE SIDEBAR
    ========================================================================== */
 
-
 @media (width <= 600px) {
   /* 1. Aplicamos la fijación solo en móvil */
   .app-container {
@@ -141,50 +140,51 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100dvh;
+    height: 100%;
+    /* Evita que el navegador intente expandirse si el teclado cambia el viewport */
     display: flex;
     flex-direction: column;
   }
 
   /* 2. Aseguramos el espacio de trabajo */
-.chat-workspace {
-    /* 1. Mantenemos el fixed que ayuda mucho */
-    position: fixed;
-    top: 0;
-    left: 0;
+  .chat-workspace {
+    flex: 1;
     width: 100%;
-    height: 100dvh;
+    height: 100%;
+    overflow: hidden; /* Cortamos cualquier desborde */
     display: flex;
     flex-direction: column;
   }
 
   /* 3. Ajuste crítico para que los mensajes no se compriman */
- .messages-container {
-    /* 2. Fuerza al contenedor a ocupar el espacio, pero evita que se estire */
-    flex: 1 1 auto; 
+  .messages-container {
+    flex: 1;
     overflow-y: auto;
-    
-    /* 3. ESTO ES CLAVE: permite que los mensajes empiecen desde arriba 
-       sin que el navegador los empuje fuera al cambiar la altura */
+    padding: 20px;
+    padding-bottom: 20px;
+    /* Esto es lo que evita que se vaya a Narnia: */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
   }
-
 
   .sidebar {
     display: none;
   }
 
   .chat-header {
-    padding: 20px 12px;
-    height: 70px; /* Definí una altura exacta, no dejes que el contenido la dicte */
-    flex-shrink: 0; /* Esto evita que el header se achique cuando aparece el teclado */
+    padding: 10px 12px;
+    flex: 0 0 70px;
   }
 
   .info-trigger {
     visibility: visible;
     opacity: 1;
+  }
+
+  .chat-footer {
+    flex: 0 0 auto;
+    padding: 16px;
   }
 }
 
