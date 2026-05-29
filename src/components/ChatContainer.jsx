@@ -30,19 +30,43 @@ export default function ChatContainer() {
 
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  // 1. Altura dinámica robusta para móviles
+  // 1. Altura dinámica robusta para móviles (usando visualViewport si está disponible)
   useEffect(() => {
     const doc = document.documentElement;
     const updateHeight = () => {
-      const height = window.innerHeight;
+      const height = window.visualViewport ? window.visualViewport.height : window.innerHeight;
       setWindowHeight(height);
       doc.style.setProperty('--app-height', `${height}px`);
     };
     
-    window.addEventListener('resize', updateHeight);
+    const viewport = window.visualViewport;
+    if (viewport) {
+      viewport.addEventListener('resize', updateHeight);
+      viewport.addEventListener('scroll', updateHeight);
+    } else {
+      window.addEventListener('resize', updateHeight);
+    }
     updateHeight();
     
-    return () => window.removeEventListener('resize', updateHeight);
+    return () => {
+      if (viewport) {
+        viewport.removeEventListener('resize', updateHeight);
+        viewport.removeEventListener('scroll', updateHeight);
+      } else {
+        window.removeEventListener('resize', updateHeight);
+      }
+    };
+  }, []);
+
+  // 1b. Bloquear desplazamiento del viewport del navegador para que no empuje el header hacia arriba
+  useEffect(() => {
+    const preventViewportScroll = () => {
+      if (window.scrollY !== 0) {
+        window.scrollTo(0, 0);
+      }
+    };
+    window.addEventListener('scroll', preventViewportScroll);
+    return () => window.removeEventListener('scroll', preventViewportScroll);
   }, []);
 
   // 2. Scroll inteligente (solo baja si el contenido lo requiere o al cambiar la altura)

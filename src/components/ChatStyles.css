@@ -158,8 +158,9 @@ body {
   }
 
   .chat-header {
-    padding: 20px 12px;
-    flex: 0 0 70px;
+    padding: 12px 16px;
+    flex: 0 0 auto;
+    flex-shrink: 0;
   }
 
 .messages-container {
@@ -180,7 +181,9 @@ body {
   }
 
   .chat-footer {
-    flex: 0 0 80px; /* Altura fija para el área de input */
+    padding: 12px 16px;
+    flex: 0 0 auto;
+    flex-shrink: 0;
   }
 }
 
