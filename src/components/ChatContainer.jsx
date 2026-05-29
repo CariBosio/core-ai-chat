@@ -28,6 +28,7 @@ export default function ChatContainer() {
   const inputRef = useRef(null);
   const inactivityTimerRef = useRef(null);
 
+  // 1. Altura dinámica robusta para móviles
   useEffect(() => {
     const doc = document.documentElement;
     const updateHeight = () => {
@@ -35,9 +36,28 @@ export default function ChatContainer() {
     };
     
     window.addEventListener('resize', updateHeight);
-    updateHeight(); // Ejecutar al montar
+    updateHeight();
     
     return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
+  // 2. Scroll inteligente (solo baja si el contenido lo requiere)
+  useEffect(() => {
+    if (messages.length > 0) {
+      const container = containerRef.current;
+      if (container && container.scrollHeight > container.clientHeight) {
+        requestAnimationFrame(() => {
+          messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+        });
+      }
+    }
+  }, [messages, isTyping]);
+
+  // 3. Limpieza del timer al desmontar
+  useEffect(() => {
+    return () => {
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    };
   }, []);
 
   const startExperience = () => {
@@ -149,25 +169,6 @@ export default function ChatContainer() {
     }, 50);
   };
 
-  const handleGoodbyeTimeUpdate = () => {
-    if (chocoGoodbyeRef.current) {
-      const video = chocoGoodbyeRef.current;
-      const { currentTime, duration } = video;
-
-      if (currentTime >= 6.5) {
-        setShowRestartButton(true);
-      }
-
-      const fadeDuration = 3;
-      if (duration - currentTime < fadeDuration) {
-        const newVolume = Math.max(0, (duration - currentTime) / fadeDuration);
-        video.volume = newVolume;
-      } else {
-        if (video.volume !== 1.0) video.volume = 1.0;
-      }
-    }
-  };
-
   const resetToChatMode = () => {
     setShowRestartButton(false);
 
@@ -204,21 +205,6 @@ export default function ChatContainer() {
       }, 60000);
     }
   };
-
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      messagesEndRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
-    });
-  }, [messages, isTyping]);
-
-  useEffect(() => {
-    return () => {
-      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
-    };
-  }, []);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -345,29 +331,6 @@ export default function ChatContainer() {
       );
     }
   }, [showInfoModal]);
-
-  useEffect(() => {
-    const setVisualHeight = () => {
-      if (window.visualViewport) {
-        // Forzamos al contenedor a usar la altura real visible, ignorando el teclado
-        const vh = window.visualViewport.height;
-        document.documentElement.style.setProperty("--vh", `${vh}px`);
-      }
-    };
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", setVisualHeight);
-      window.visualViewport.addEventListener("scroll", setVisualHeight);
-      setVisualHeight();
-    }
-
-    return () => {
-      if (window.visualViewport) {
-        window.visualViewport.removeEventListener("resize", setVisualHeight);
-        window.visualViewport.removeEventListener("scroll", setVisualHeight);
-      }
-    };
-  }, []);
 
   return (
     <div className="app-container">
