@@ -20,6 +20,7 @@
 
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  --app-height: 100vh;
 }
 
 body {
@@ -32,12 +33,16 @@ body {
 .app-container {
   display: flex;
   width: 100vw;
-  height: 100vh;           /* Fallback para navegadores antiguos */
-  height: var(--vh, 100vh); /* Usa el valor calculado por el JS si existe */
+  /* 1. Usamos la variable que definimos en el useEffect */
+  height: 100vh; /* Fallback */
+  height: var(--app-height, 100vh); 
+  
   background-color: var(--bg-main);
   color: var(--text-primary);
   overflow: hidden;
-  position: fixed;         /* Esto es vital para que la app no haga "scroll" con el teclado */
+  
+  /* 2. Mantenemos el fixed para anclar la app a la pantalla */
+  position: fixed; 
   top: 0;
   left: 0;
 }
@@ -151,6 +156,18 @@ body {
   .chat-header {
     padding: 20px 12px;
   }
+
+ .messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  
+  /* 💡 AQUÍ ESTÁ EL CAMBIO */
+  justify-content: flex-start; /* Los mensajes empiezan arriba */
+  gap: 24px;
+}
 
   .info-trigger {
     visibility: visible;

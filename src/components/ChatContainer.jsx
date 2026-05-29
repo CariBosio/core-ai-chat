@@ -28,6 +28,18 @@ export default function ChatContainer() {
   const inputRef = useRef(null);
   const inactivityTimerRef = useRef(null);
 
+  useEffect(() => {
+    const doc = document.documentElement;
+    const updateHeight = () => {
+      doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+    };
+    
+    window.addEventListener('resize', updateHeight);
+    updateHeight(); // Ejecutar al montar
+    
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   const startExperience = () => {
     setIntroStage("welcome");
 
@@ -194,7 +206,12 @@ export default function ChatContainer() {
   };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
+    requestAnimationFrame(() => {
+      messagesEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    });
   }, [messages, isTyping]);
 
   useEffect(() => {
@@ -330,27 +347,27 @@ export default function ChatContainer() {
   }, [showInfoModal]);
 
   useEffect(() => {
-  const setVisualHeight = () => {
-    if (window.visualViewport) {
-      // Forzamos al contenedor a usar la altura real visible, ignorando el teclado
-      const vh = window.visualViewport.height;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-  };
+    const setVisualHeight = () => {
+      if (window.visualViewport) {
+        // Forzamos al contenedor a usar la altura real visible, ignorando el teclado
+        const vh = window.visualViewport.height;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+      }
+    };
 
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', setVisualHeight);
-    window.visualViewport.addEventListener('scroll', setVisualHeight);
-    setVisualHeight();
-  }
-
-  return () => {
     if (window.visualViewport) {
-      window.visualViewport.removeEventListener('resize', setVisualHeight);
-      window.visualViewport.removeEventListener('scroll', setVisualHeight);
+      window.visualViewport.addEventListener("resize", setVisualHeight);
+      window.visualViewport.addEventListener("scroll", setVisualHeight);
+      setVisualHeight();
     }
-  };
-}, []);
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", setVisualHeight);
+        window.visualViewport.removeEventListener("scroll", setVisualHeight);
+      }
+    };
+  }, []);
 
   return (
     <div className="app-container">
