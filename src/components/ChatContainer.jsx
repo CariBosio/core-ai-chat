@@ -331,11 +331,15 @@ export default function ChatContainer() {
 
 useEffect(() => {
   const handleResize = () => {
-    // Cuando el teclado se abre, el resize es inmediato
-    // Usamos scrollIntoView para asegurar que el input sea visible
-    inputRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    // Si el ancho se mantiene igual pero la altura cambia, es el teclado
+    if (window.innerHeight < 500) { 
+      // Si el teclado está abierto, no fuerces scroll, 
+      // deja que el contenedor simplemente se encoja
+      return; 
+    }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
+  
   window.addEventListener("resize", handleResize);
   return () => window.removeEventListener("resize", handleResize);
 }, []);
