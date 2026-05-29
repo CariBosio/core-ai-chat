@@ -35,14 +35,14 @@ body {
   width: 100vw;
   /* 1. Usamos la variable que definimos en el useEffect */
   height: 100vh; /* Fallback */
-  height: var(--app-height, 100vh); 
-  
+  height: var(--app-height, 100vh);
+
   background-color: var(--bg-main);
   color: var(--text-primary);
   overflow: hidden;
-  
+
   /* 2. Mantenemos el fixed para anclar la app a la pantalla */
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
 }
@@ -155,23 +155,35 @@ body {
 
   .chat-header {
     padding: 20px 12px;
+    flex: 0 0 70px;
   }
 
- .messages-container {
-  flex: 1;
-  overflow-y: auto;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  
-  /* 💡 AQUÍ ESTÁ EL CAMBIO */
-  justify-content: flex-start; /* Los mensajes empiezan arriba */
-  gap: 24px;
-}
+  .messages-container {
+    /* Quitamos el flex: 1 que obliga a ocupar todo el espacio */
+    flex: 0 1 auto;
+
+    /* Le damos un tamaño que se adapte al contenido */
+    height: auto;
+
+    /* Pero le ponemos un límite máximo para que nunca se desborde del viewport */
+    max-height: calc(
+      100dvh - 140px
+    ); /* Restamos el header y footer aproximados */
+
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 
   .info-trigger {
     visibility: visible;
     opacity: 1;
+  }
+
+  .chat-footer {
+    flex: 0 0 80px; /* Altura fija para el área de input */
   }
 }
 
