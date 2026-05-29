@@ -29,6 +29,13 @@ export default function ChatContainer() {
   const inactivityTimerRef = useRef(null);
 
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [welcomeVideoActive, setWelcomeVideoActive] = useState(false);
+
+  // Preload avatar image to prevent flicker
+  useEffect(() => {
+    const img = new Image();
+    img.src = chocoStaticAvatarIcon;
+  }, []);
 
   // 1. Altura dinámica robusta para móviles (usando visualViewport si está disponible)
   useEffect(() => {
@@ -90,6 +97,7 @@ export default function ChatContainer() {
 
   const startExperience = () => {
     setIntroStage("welcome");
+    setWelcomeVideoActive(true);
 
     setTimeout(() => {
       if (chocoVideoRef.current) {
@@ -121,38 +129,86 @@ export default function ChatContainer() {
           },
         });
 
-        tl.to(chocoVideoRef.current, {
-          top: "135px",
-          left: "32px",
-          width: "44px",
-          height: "44px",
-          duration: 0.9,
-          ease: "power2.inOut",
-          onComplete: () => {
-            if (chocoVideoRef.current) {
-              chocoVideoRef.current.pause();
-              chocoVideoRef.current.volume = 1.0;
+        // Callback en la línea de tiempo de GSAP para iniciar el encogimiento y el cambio de vista
+        tl.call(() => {
+          // Primero renderizamos la vista de chat para poder medir la posición exacta del avatar mini
+          setMessages([
+            {
+              id: 1,
+              sender: "agent",
+              text: "Por favor, para comenzar, decime tu nombre y apellido completo.",
+              time: new Date().toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              }),
+            },
+          ]);
+          setIntroStage("chat");
+          resetInactivityTimer();
+
+          // Esperamos un tick del render de React para medir la posición del elemento en el DOM
+          setTimeout(() => {
+            const avatarEl = document.querySelector(".choco-avatar-mini-inline");
+            const workspaceEl = document.querySelector(".chat-workspace");
+
+            if (avatarEl && workspaceEl && chocoVideoRef.current) {
+              const avatarRect = avatarEl.getBoundingClientRect();
+              const workspaceRect = workspaceEl.getBoundingClientRect();
+
+              const targetLeft = avatarRect.left - workspaceRect.left;
+              const targetTop = avatarRect.top - workspaceRect.top;
+              const targetWidth = avatarRect.width;
+              const targetHeight = avatarRect.height;
+
+              // Animamos el video de bienvenida hasta la posición EXACTA calculada
+              gsap.to(chocoVideoRef.current, {
+                top: `${targetTop}px`,
+                left: `${targetLeft}px`,
+                width: `${targetWidth}px`,
+                height: `${targetHeight}px`,
+                duration: 0.9,
+                ease: "power2.inOut",
+                onComplete: () => {
+                  if (chocoVideoRef.current) {
+                    chocoVideoRef.current.pause();
+                    chocoVideoRef.current.volume = 1.0;
+                  }
+
+                  // Transición suave de opacidad del video antes de desmontarlo
+                  gsap.to(chocoVideoRef.current, {
+                    opacity: 0,
+                    duration: 0.15,
+                    onComplete: () => {
+                      setWelcomeVideoActive(false);
+                    },
+                  });
+
+                  setTimeout(() => {
+                    inputRef.current?.focus();
+                  }, 50);
+                },
+              });
+            } else {
+              // Fallback por si los elementos no están disponibles en el DOM
+              gsap.to(chocoVideoRef.current, {
+                top: "135px",
+                left: "32px",
+                width: "44px",
+                height: "44px",
+                duration: 0.9,
+                ease: "power2.inOut",
+                onComplete: () => {
+                  if (chocoVideoRef.current) {
+                    chocoVideoRef.current.pause();
+                  }
+                  setWelcomeVideoActive(false);
+                  setTimeout(() => {
+                    inputRef.current?.focus();
+                  }, 50);
+                },
+              });
             }
-
-            setMessages([
-              {
-                id: 1,
-                sender: "agent",
-                text: "Por favor, para comenzar, decime tu nombre y apellido completo.",
-                time: new Date().toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                }),
-              },
-            ]);
-
-            setIntroStage("chat");
-            resetInactivityTimer();
-
-            setTimeout(() => {
-              inputRef.current?.focus();
-            }, 50);
-          },
+          }, 35);
         });
       }
     }, 50);
@@ -468,13 +524,16 @@ export default function ChatContainer() {
         )}
 
         {/* WELCOME STATE */}
-        {introStage === "welcome" && (
+        {(introStage === "welcome" || welcomeVideoActive) && (
           <video
             ref={chocoVideoRef}
             src={chocoVideoWelcome}
             autoPlay
             playsInline
             className="choco-permanent-fly-avatar"
+            style={{
+              pointerEvents: welcomeVideoActive ? "none" : "auto",
+            }}
           />
         )}
 
@@ -503,7 +562,14 @@ export default function ChatContainer() {
 
         <div className="messages-container" ref={containerRef}>
           {messages.map((msg) => (
-            <div key={msg.id} className={`message-row ${msg.sender}`}>
+            <div
+              key={msg.id}
+              className={`message-row ${msg.sender}`}
+              style={{
+                opacity: msg.id === 1 && welcomeVideoActive ? 0 : 1,
+                transition: "opacity 0.3s ease",
+              }}
+            >
               {msg.sender === "agent" && (
                 <div className="choco-avatar-mini-inline">
                   <img
