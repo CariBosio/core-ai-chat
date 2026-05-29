@@ -48,9 +48,16 @@ export default function ChatContainer() {
         );
 
         tl.to(chocoVideoRef.current, {
-          duration: 8,
+          duration: 7.5,
           onStart: () => {
             chocoVideoRef.current.play().catch(() => {});
+
+            gsap.to(chocoVideoRef.current, {
+              volume: 0,
+              duration: 2,
+              delay: 6,
+              ease: "power1.out",
+            });
           },
         });
 
@@ -64,6 +71,7 @@ export default function ChatContainer() {
           onComplete: () => {
             if (chocoVideoRef.current) {
               chocoVideoRef.current.pause();
+              chocoVideoRef.current.volume = 1.0;
             }
 
             setMessages([
@@ -131,9 +139,19 @@ export default function ChatContainer() {
 
   const handleGoodbyeTimeUpdate = () => {
     if (chocoGoodbyeRef.current) {
-      const currentTime = chocoGoodbyeRef.current.currentTime;
+      const video = chocoGoodbyeRef.current;
+      const { currentTime, duration } = video;
+
       if (currentTime >= 6.5) {
         setShowRestartButton(true);
+      }
+
+      const fadeDuration = 3;
+      if (duration - currentTime < fadeDuration) {
+        const newVolume = Math.max(0, (duration - currentTime) / fadeDuration);
+        video.volume = newVolume;
+      } else {
+        if (video.volume !== 1.0) video.volume = 1.0;
       }
     }
   };
@@ -382,14 +400,12 @@ export default function ChatContainer() {
         {/* PRELOAD STATE */}
         {introStage === "preload" && (
           <div className="preload-overlay">
-           
-              <video
-                src={chocoVideoWelcome}
-                muted
-                playsInline
-                className="choco-permanent-fly-avatar"
-              />
-          
+            <video
+              src={chocoVideoWelcome}
+              muted
+              playsInline
+              className="choco-permanent-fly-avatar"
+            />
 
             <button
               type="button"
