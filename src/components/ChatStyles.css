@@ -147,7 +147,7 @@
   flex: 1; /* Esto hace que los mensajes ocupen todo el espacio disponible */
   overflow-y: auto; /* Scroll propio */
   padding: 20px;
-  min-height: 50px;
+  min-height: fit-content;
 }
 
 
