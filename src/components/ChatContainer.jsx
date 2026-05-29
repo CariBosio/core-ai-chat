@@ -28,11 +28,15 @@ export default function ChatContainer() {
   const inputRef = useRef(null);
   const inactivityTimerRef = useRef(null);
 
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
   // 1. Altura dinámica robusta para móviles
   useEffect(() => {
     const doc = document.documentElement;
     const updateHeight = () => {
-      doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+      const height = window.innerHeight;
+      setWindowHeight(height);
+      doc.style.setProperty('--app-height', `${height}px`);
     };
     
     window.addEventListener('resize', updateHeight);
@@ -41,7 +45,7 @@ export default function ChatContainer() {
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
-  // 2. Scroll inteligente (solo baja si el contenido lo requiere)
+  // 2. Scroll inteligente (solo baja si el contenido lo requiere o al cambiar la altura)
   useEffect(() => {
     if (messages.length > 0) {
       const container = containerRef.current;
@@ -51,7 +55,7 @@ export default function ChatContainer() {
         });
       }
     }
-  }, [messages, isTyping]);
+  }, [messages, isTyping, windowHeight]);
 
   // 3. Limpieza del timer al desmontar
   useEffect(() => {
