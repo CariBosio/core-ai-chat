@@ -147,21 +147,28 @@
   }
 
   /* 2. Aseguramos el espacio de trabajo */
-  .chat-workspace {
-    flex: 1;
+.chat-workspace {
+    /* 1. Mantenemos el fixed que ayuda mucho */
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%; /* Toma el 100% de la app-container fija */
-    overflow: hidden;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
   }
 
   /* 3. Ajuste crítico para que los mensajes no se compriman */
-  .messages-container {
-    flex: 1;
+ .messages-container {
+    /* 2. Fuerza al contenedor a ocupar el espacio, pero evita que se estire */
+    flex: 1 1 auto; 
     overflow-y: auto;
-    padding: 20px;
-    padding-bottom: 20px;
-    /* Evita que el contenedor se colapse ante el cambio de altura */
-    min-height: 0; 
+    
+    /* 3. ESTO ES CLAVE: permite que los mensajes empiecen desde arriba 
+       sin que el navegador los empuje fuera al cambiar la altura */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
 
@@ -171,6 +178,8 @@
 
   .chat-header {
     padding: 20px 12px;
+    height: 70px; /* Definí una altura exacta, no dejes que el contenido la dicte */
+    flex-shrink: 0; /* Esto evita que el header se achique cuando aparece el teclado */
   }
 
   .info-trigger {

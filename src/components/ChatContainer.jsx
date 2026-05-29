@@ -340,6 +340,14 @@ useEffect(() => {
   return () => window.removeEventListener("resize", handleResize);
 }, []);
 
+useEffect(() => {
+  const metaViewport = document.querySelector('meta[name="viewport"]');
+  // Evitamos que el navegador haga el reescalado agresivo del viewport
+  if (metaViewport) {
+    metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+  }
+}, []);
+
   return (
     <div className="app-container">
       <aside className="sidebar">
