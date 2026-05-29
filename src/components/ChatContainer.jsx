@@ -329,12 +329,11 @@ export default function ChatContainer() {
     }
   }, [showInfoModal]);
 
-  useEffect(() => {
+useEffect(() => {
   const handleResize = () => {
-    // Pequeño timeout para esperar a que el teclado termine de animar su apertura
-    setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 300);
+    // Cuando el teclado se abre, el resize es inmediato
+    // Usamos scrollIntoView para asegurar que el input sea visible
+    inputRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   };
 
   window.addEventListener("resize", handleResize);

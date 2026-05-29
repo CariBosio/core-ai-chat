@@ -25,13 +25,11 @@
 .app-container {
   display: flex;
   width: 100vw;
-  height: 100dvh; /* Mantenemos dvh */
+  height: 100vh;
+  height: 100dvh;
   background-color: var(--bg-main);
   color: var(--text-primary);
   overflow: hidden;
-  position: fixed; /* 💡 Esto es lo que impide el movimiento del viewport */
-  top: 0;
-  left: 0;
 }
 
 /* ==========================================================================
@@ -137,7 +135,19 @@
 
 @media (width <= 600px) {
 
- .chat-workspace {
+  .app-container {
+  display: flex;
+  width: 100vw;
+  height: 100dvh; /* Mantenemos dvh */
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  overflow: hidden;
+  position: fixed; /* 💡 Esto es lo que impide el movimiento del viewport */
+  top: 0;
+  left: 0;
+}
+
+.chat-workspace {
   flex: 1;
   background-color: var(--bg-chat);
   display: flex;
