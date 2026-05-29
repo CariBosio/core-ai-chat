@@ -329,27 +329,27 @@ export default function ChatContainer() {
     }
   }, [showInfoModal]);
 
-useEffect(() => {
-  const handleResize = () => {
-    // Si el ancho se mantiene igual pero la altura cambia, es el teclado
-    if (window.innerHeight < 500) { 
-      // Si el teclado está abierto, no fuerces scroll, 
-      // deja que el contenedor simplemente se encoja
-      return; 
+  useEffect(() => {
+  const setVisualHeight = () => {
+    if (window.visualViewport) {
+      // Forzamos al contenedor a usar la altura real visible, ignorando el teclado
+      const vh = window.visualViewport.height;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
 
-useEffect(() => {
-  const metaViewport = document.querySelector('meta[name="viewport"]');
-  // Evitamos que el navegador haga el reescalado agresivo del viewport
-  if (metaViewport) {
-    metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', setVisualHeight);
+    window.visualViewport.addEventListener('scroll', setVisualHeight);
+    setVisualHeight();
   }
+
+  return () => {
+    if (window.visualViewport) {
+      window.visualViewport.removeEventListener('resize', setVisualHeight);
+      window.visualViewport.removeEventListener('scroll', setVisualHeight);
+    }
+  };
 }, []);
 
   return (
