@@ -25,11 +25,13 @@
 .app-container {
   display: flex;
   width: 100vw;
-  height: 100vh;
-  height: 100dvh;
+  height: 100dvh; /* Mantenemos dvh */
   background-color: var(--bg-main);
   color: var(--text-primary);
   overflow: hidden;
+  position: fixed; /* 💡 Esto es lo que impide el movimiento del viewport */
+  top: 0;
+  left: 0;
 }
 
 /* ==========================================================================
@@ -135,19 +137,26 @@
 
 @media (width <= 600px) {
 
-  .chat-workspace {
+ .chat-workspace {
+  flex: 1;
+  background-color: var(--bg-chat);
   display: flex;
   flex-direction: column;
-  height: 100dvh; /* Usamos dvh */
-  width: 100%;
-  overflow: hidden; /* Importante para que el scroll esté contenido */
+  position: relative;
+  overflow: hidden;
+  height: 100%; /* Ocupa el 100% del contenedor fijo */
 }
 
 .messages-container {
-  flex: 1; /* Esto hace que los mensajes ocupen todo el espacio disponible */
-  overflow-y: auto; /* Scroll propio */
-  padding: 20px;
-  min-height: fit-content;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* Aseguramos que siempre tenga espacio */
+  padding-bottom: 20px; 
 }
 
 
