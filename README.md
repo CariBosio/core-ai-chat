@@ -1,7 +1,5 @@
 
 
-https://github.com/user-attachments/assets/0e9d4e8c-af44-4e5a-8342-c9a8b5d202c0
-
 
 
 # Choco: Agente de IA para RRHH
