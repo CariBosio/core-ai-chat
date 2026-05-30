@@ -1,3 +1,9 @@
+
+
+https://github.com/user-attachments/assets/0e9d4e8c-af44-4e5a-8342-c9a8b5d202c0
+
+
+
 # Choco: Agente de IA para RRHH
 Asistente virtual autónomo diseñado para la gestión de consultas de Recursos Humanos en **ChocolaTech**. 
 
@@ -19,16 +25,15 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 *   **UX Responsiva:** Interfaz optimizada para dispositivos móviles, garantizando fluidez incluso durante la interacción con teclados virtuales.
 
 ## 📽️ Demo Visual
-*(Aquí puedes insertar los GIFs de tus videos "Choco_Desktop.mp4" y "Choco_Mobile.mp4" para mostrar cómo interactúa el usuario)*
+
 ## Demo Desktop
 
-
-
-
+https://github.com/user-attachments/assets/e9c59d07-1cfc-4ae0-bf86-5f4b4548cdb3
 
 ## Demo Mobile
 
-https://github.com/user-attachments/assets/ac475429-c36e-4ff0-ba13-459cfddf6551
+https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e
+
 
 ## 📂 Estructura del Repositorio
 *   `/src`: Código fuente del frontend (React).
