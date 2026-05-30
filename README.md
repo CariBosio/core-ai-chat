@@ -26,7 +26,14 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 
 ## Demo Desktop
 
-https://github.com/user-attachments/assets/e9c59d07-1cfc-4ae0-bf86-5f4b4548cdb3
+<h3>Experiencia en Desktop</h3>
+<video width="600" controls poster="https://github.com/user-attachments/assets/2858ab51-46f2-4135-aa24-b17260ec3d91">
+  <source src="https://github.com/user-attachments/assets/e9c59d07-1cfc-4ae0-bf86-5f4b4548cdb3" type="video/mp4">
+  Tu navegador no soporta el formato de video.
+</video>
+
+
+
 
 ## Demo Mobile
 
