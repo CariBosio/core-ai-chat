@@ -24,15 +24,12 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 
 ## 📽️ Demo Visual
 
-<h3>Experiencia en Desktop</h3>
-[![Click para ver video Desktop](https://github.com/user-attachments/assets/2858ab51-46f2-4135-aa24-b17260ec3d91)](https://github.com/CariBosio/core-ai-chat/blob/main/src/assets/Choco_Desktop.mp4)
+## Experiencia en Desktop
+
+(https://github.com/CariBosio/core-ai-chat/blob/main/src/assets/Choco_Desktop.mp4)
 
 
-
-
-## Demo Mobile
-
-[![Click para ver video Mobile](https://github.com/user-attachments/assets/2858ab51-46f2-4135-aa24-b17260ec3d91)](https://github.com/CariBosio/core-ai-chat/blob/main/src/assets/Choco_Mobile.mp4)
+## Experiencia en Mobile
 
 https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e
 
