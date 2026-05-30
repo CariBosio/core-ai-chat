@@ -1,6 +1,6 @@
 # 🤖 Choco: Agente de IA para RRHH
 
-![Avatar de Choco](src/assets/Choco_frame.png)
+![Avatar de Choco](<img src="src/assets/Choco_frame.png" width="200">)
 
 Asistente virtual autónomo diseñado para la gestión de consultas de Recursos Humanos en **ChocolaTech**. 
 
