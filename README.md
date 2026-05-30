@@ -1,8 +1,7 @@
-# 🤖 Choco: Agente de IA para RRHH
+# Choco: Agente de IA para RRHH
+Asistente virtual autónomo diseñado para la gestión de consultas de Recursos Humanos en **ChocolaTech**. 
 
 <img src="src/assets/Choco_frame.png" width="200" alt="Avatar de Choco">
-
-Asistente virtual autónomo diseñado para la gestión de consultas de Recursos Humanos en **ChocolaTech**. 
 
 ## 🚀 Acerca del Proyecto
 Choco nació durante la **Inmersión en Agentes de IA de Alura Latam y ONE Oracle Next Education**. Ante las dificultades técnicas para implementar la integración con Telegram, este proyecto evolucionó hacia una **aplicación web propia**, permitiéndome integrar mi formación en Psicología con el desarrollo Frontend y la Inteligencia Artificial.
