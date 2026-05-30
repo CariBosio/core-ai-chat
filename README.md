@@ -22,11 +22,13 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 *(Aquí puedes insertar los GIFs de tus videos "Choco_Desktop.mp4" y "Choco_Mobile.mp4" para mostrar cómo interactúa el usuario)*
 ## Demo Desktop
 
-[▶ Ver video Desktop](./src/assets/Choco_Desktop.mp4)
+
+
+
 
 ## Demo Mobile
 
-[▶ Ver video Mobile](./src/assets/Choco_Mobile.mp4)
+https://github.com/user-attachments/assets/ac475429-c36e-4ff0-ba13-459cfddf6551
 
 ## 📂 Estructura del Repositorio
 *   `/src`: Código fuente del frontend (React).
