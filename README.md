@@ -41,7 +41,7 @@ https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e
 
 ## 🚀 Cómo probarlo
 Puedes interactuar con Choco en tiempo real aquí:
-👉 **[URL de tu app](https://core-ai-chat.vercel.app/)**
+👉 **[URL de la app](https://core-ai-chat.vercel.app/)**
 
 **Datos de prueba:**
 Puedes consultar por empleados como: *"Juan Silva"*, *"Ana Lima"*, *"Bruno Álvarez"*.
