@@ -20,17 +20,13 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 
 ## 📽️ Demo Visual
 *(Aquí puedes insertar los GIFs de tus videos "Choco_Desktop.mp4" y "Choco_Mobile.mp4" para mostrar cómo interactúa el usuario)*
-<h3>Experiencia en Desktop</h3>
-<video width="600" controls>
-  <source src="src/assets/Choco_Desktop.mp4" type="video/mp4">
-  Tu navegador no soporta el formato de video.
-</video>
+## Demo Desktop
 
-<h3>Experiencia en Mobile</h3>
-<video width="300" controls>
-  <source src="src/assets/Choco_Mobile.mp4" type="video/mp4">
-  Tu navegador no soporta el formato de video.
-</video>
+[▶ Ver video Desktop](./src/assets/Choco_Desktop.mp4)
+
+## Demo Mobile
+
+[▶ Ver video Mobile](./src/assets/Choco_Mobile.mp4)
 
 ## 📂 Estructura del Repositorio
 *   `/src`: Código fuente del frontend (React).
