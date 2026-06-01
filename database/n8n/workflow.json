@@ -1,0 +1,155 @@
+{
+  "name": "INM_AG_CLASE3_FLUJO1",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.chatInput }}",
+        "options": {
+          "systemMessage": "Eres Choco, el asistente virtual de Recursos Humanos de ChocolaTech. Tu tono debe ser profesional, atento, cálido y muy educado.\n\nREGLAS GENERALES DE IDIOMA Y ROL:\n- Responde siempre en español.\n- Responde ÚNICAMENTE dudas y consultas relacionadas con Recursos Humanos. Si te preguntan de otro tema, declina amablemente.\n\nVALIDACIÓN DE IDENTIDAD (PRIORIDAD ALTA):\n- El usuario DEBE proporcionar su nombre y apellido completo antes de que puedas realizar cualquier consulta o brindar información específica.\n- SI EL USUARIO NO SE HA IDENTIFICADO:\n  * Tu respuesta debe ser siempre amable y profesional.\n  * SI TE SALUDAN (ej: \"Hola\"): Responde: \"¡Hola! Un gusto saludarte. Para poder ayudarte con lo que necesites, por favor indicame tu nombre y apellido completo.\"\n  * SI TE HACEN UNA PREGUNTA: Responde de forma cálida a la consulta y añade: \"Sin embargo, para poder realizar gestiones o brindarte información, primero necesito que me digas tu nombre y apellido completo.\"\n  * ESTÁ PROHIBIDO usar la herramienta de MySQL o el Vector Store mientras el usuario no esté validado.\n- EN CUANTO EL USUARIO PROPORCIONE SU NOMBRE:\n  * Tu respuesta debe ser EXCLUSIVAMENTE: \"¡Hola [Nombre]! Un gusto. ¿En qué puedo ayudarte hoy?\".\n  * Considera a [Nombre] como el usuario activo para consultas de MySQL.\n\nREGLA DE CAMBIO DE EMPLEADO (NUEVA):\n- Si el usuario dice explícitamente: \"Quiero consultar por otra persona\" o \"Cambiar de empleado\":\n  * Confirma amablemente que reinicias el contexto: \"Entendido, ya no consultaré por [Nombre Anterior]. Por favor, indicame el nombre y apellido completo del nuevo empleado.\"\n  * Elimina cualquier referencia al empleado anterior de tu memoria activa para este hilo.\n  * Vuelve al estado de \"No identificado\" hasta que te den el nuevo nombre.\n\nIDENTIFICACIÓN Y USO DE HERRAMIENTAS:\n- Usa la herramienta MySQL para buscar en la tabla 'empleados' usando el nombre del empleado activo actualmente.\n- Si figura en la tabla: Responde ÚNICAMENTE a lo solicitado. Prohibido mencionar datos no pedidos.\n- Si NO se encuentra: Explícale que no lo encontraste en el sistema y usa el Vector Store para políticas generales.\n\nREGLA CRÍTICA DE CIERRE DE CONVERSACIÓN:\n- Siempre, después de responder, debés finalizar tu mensaje con la pregunta exacta: \"¿Tenés otra consulta?\"."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [320, 0],
+      "id": "96f71964-3f7f-40d4-96d1-709701f38e86",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatCohere",
+      "typeVersion": 1,
+      "position": [32, 224],
+      "id": "e14bdfe2-29e1-4674-a602-fbb8bad86e7c",
+      "name": "Cohere Chat Model",
+      "credentials": {
+        "cohereApi": {
+          "id": "REEMPLAZAR_CON_TU_ID_CREDENCIAL",
+          "name": "Cohere account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "sesion-prueba"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [272, 240],
+      "id": "6d1312dd-2dbb-4475-be8f-c0368cca0bb0",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Buscar informaciones sobre RH, asuntos como vacaciones, horarios, etc.",
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [400, 240],
+      "id": "9b76fb8c-37e8-4a24-b631-6e93785e1980",
+      "name": "Simple Vector Store"
+    },
+    {
+      "parameters": {
+        "modelName": "embed-multilingual-v3.0"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsCohere",
+      "typeVersion": 1,
+      "position": [464, 416],
+      "id": "4f8fe120-5de8-4a36-b6cb-293c7d65f3f1",
+      "name": "Embeddings Cohere",
+      "credentials": {
+        "cohereApi": {
+          "id": "REEMPLAZAR_CON_TU_ID_CREDENCIAL",
+          "name": "Cohere account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chat-agente",
+        "responseMode": "lastNode",
+        "options": {
+          "allowedOrigins": "*",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, 0],
+      "id": "aa4a1ec8-eab2-4bf4-ba6d-6b0b2a202c7b",
+      "name": "Webhook",
+      "webhookId": "TU_WEBHOOK_ID_AQUI"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9d165d83-2e3e-4707-955f-09af30cb159f",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [688, 0],
+      "id": "bc8a12c3-5774-40d9-bc7b-a72ee2fbb562",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "empleados",
+          "mode": "list",
+          "cachedResultName": "empleados"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySqlTool",
+      "typeVersion": 2.5,
+      "position": [768, 208],
+      "id": "f90c5103-c7ab-42e4-b08b-db7bdca7ef87",
+      "name": "Select rows from a table in MySQL",
+      "credentials": {
+        "mySql": {
+          "id": "REEMPLAZAR_CON_TU_ID_CREDENCIAL",
+          "name": "MySQL account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Cohere Chat Model": { "ai_languageModel": [[{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]] },
+    "Simple Memory": { "ai_memory": [[{ "node": "AI Agent", "type": "ai_memory", "index": 0 }]] },
+    "Simple Vector Store": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] },
+    "Embeddings Cohere": { "ai_embedding": [[{ "node": "Simple Vector Store", "type": "ai_embedding", "index": 0 }]] },
+    "Webhook": { "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]] },
+    "AI Agent": { "main": [[{ "node": "Edit Fields", "type": "main", "index": 0 }]] },
+    "Select rows from a table in MySQL": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] }
+  },
+  "active": true
+}
