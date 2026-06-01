@@ -37,6 +37,9 @@ https://github.com/user-attachments/assets/d32442ff-57a9-420e-b9b4-a317f493ea0f
 
 https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e
 
+### Experiencia en Mobile
+[![Demo Mobile](https://github.com/user-attachments/assets/18c27a70-30cf-4588-b45e-17a0c486f04e)](https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e)
+
 
 ## 📂 Estructura del Repositorio
 *   `/src`: Código fuente del frontend (React).
