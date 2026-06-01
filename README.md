@@ -13,14 +13,32 @@ Choco nació durante la **Inmersión en Agentes de IA de Alura Latam y ONE Oracl
 El objetivo fue crear un asistente que no solo sea funcional, sino **empático y seguro**, implementando un flujo de validación "anti-ansiedad" que prioriza la experiencia del usuario (UX) antes de procesar información sensible.
 
 ## 🛠️ Stack Tecnológico
-*   **Frontend:** React, Vite, JavaScript, CSS Moderno (@scope), GSAP (animaciones).
-*   **Backend & Orquestación:** n8n (flujos de IA), Railway (MySQL Database).
-*   **Despliegue:** Vercel.
+| **Frontend** | React, Vite, JavaScript, CSS Moderno (@scope), GSAP |
+| **Orquestación** | n8n (flujos de IA) |
+| **IA & Lenguaje** | Cohere (LLM + Embeddings) |
+| **Base de Datos** | MySQL (alojada en Railway) |
+| **Despliegue** | Vercel |
 
 ## 🧠 Características Principales
 *   **Validación de Identidad:** Flujo conversacional que asegura la autenticación del usuario antes de exponer datos.
-*   **Contexto Híbrido:** Integración inteligente que combina una **Base de Conocimientos (RAG)** para políticas generales y consultas dinámicas a **MySQL** para datos personales de empleados.
+*   **Contexto Híbrido:** Integración inteligente que combina una **Base de Conocimientos (RAG)** para políticas generales y consultas dinámicas a *   **MySQL** para datos personales de empleados.
 *   **UX Responsiva:** Interfaz optimizada para dispositivos móviles, garantizando fluidez incluso durante la interacción con teclados virtuales.
+
+## 🏗️ Arquitectura del Flujo (n8n)
+El asistente utiliza un flujo en n8n diseñado para priorizar la seguridad, requiriendo validación de identidad antes de acceder a herramientas de base de datos.
+
+<img width="1396" height="693" alt="Workflow n8n" src="https://github.com/user-attachments/assets/8e1a17bf-2dc2-42e0-9aef-2748ee077878" />
+
+## 📂 Estructura del Repositorio
+*   `/src`: Código fuente del frontend (React).
+*   `/assets`: Animaciones y componentes de diseño.
+*   `/database`: `schema.sql` (Estructura de la tabla de empleados).
+*   `/n8n`: `workflow.json` (Flujo lógico de orquestación - *Nota: sin credenciales*).
+
+## 💡 Desafíos Técnicos
+*   **Humanización:** Aplicación de conceptos psicológicos para reducir la fricción en la interacción máquina-humano.
+*   **Seguridad:** Implementación de reglas de validación estricta para evitar la exposición de datos personales sin autenticación previa.
+*   **Integración:** Orquestación de múltiples servicios (MySQL + Vector Store) dentro de un único agente conversacional.
 
 ## 📽️ Demo Visual
 
@@ -40,13 +58,6 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
   <i><small>Haz clic para ver el video (o presiona Ctrl + Clic para abrir en una pestaña nueva).</small></i>
 </p>
 
-
-## 📂 Estructura del Repositorio
-*   `/src`: Código fuente del frontend (React).
-*   `/assets`: Animaciones y componentes de diseño.
-*   `/database`: `schema.sql` (Estructura de la tabla de empleados).
-*   `/n8n`: `workflow.json` (Flujo lógico de orquestación - *Nota: sin credenciales*).
-
 ## 🚀 Cómo probarlo
 Puedes interactuar con Choco en tiempo real aquí:
 👉 **[URL de la app](https://core-ai-chat.vercel.app/)**
@@ -54,9 +65,6 @@ Puedes interactuar con Choco en tiempo real aquí:
 **Datos de prueba:**
 Puedes consultar por empleados como: *"Juan Silva"*, *"Ana Lima"*, *"Bruno Álvarez"*.
 *Tip: Para cambiar de empleado en la misma sesión, escribe "Quiero consultar por otra persona".*
-
-## 💡 Sobre el Diseño Conversacional
-Como profesional de la psicología, el diseño de Choco se centró en la **humanización de la tecnología**. La insistencia en la identidad y el tono cálido son decisiones deliberadas de UX para generar confianza y reducir la fricción en entornos corporativos.
 
 ---
 *Desarrollado por [CariBosio](https://github.com/CariBosio) | Psicóloga + Frontend Developer*
