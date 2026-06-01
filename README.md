@@ -28,9 +28,9 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 <a href="https://github.com/user-attachments/assets/d32442ff-57a9-420e-b9b4-a317f493ea0f" target="_blank" rel="noopener noreferrer">
   <img width="600" src="https://github.com/user-attachments/assets/304581ec-7403-4870-a4e6-172702a3fe8b" alt="Demo Desktop">
 </a>
-<small>
-  *Haz clic para ver el video (o presiona Ctrl + Clic para abrir en una pestaña nueva).*
-</small>
+<p>
+  <i><small>Haz clic para ver el video (o presiona Ctrl + Clic para abrir en una pestaña nueva).</small></i>
+</p>
 
 ### Experiencia en Mobile
 <a href="https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e" target="_blank" rel="noopener noreferrer">
