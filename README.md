@@ -25,10 +25,9 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 ## 📽️ Demo Visual
 
 ## Experiencia en Desktop
-
-<img width="1910" height="927" alt="Poster_Desktop" src="https://github.com/user-attachments/assets/304581ec-7403-4870-a4e6-172702a3fe8b" />
-
-https://github.com/user-attachments/assets/d32442ff-57a9-420e-b9b4-a317f493ea0f
+<a href="https://github.com/user-attachments/assets/d32442ff-57a9-420e-b9b4-a317f493ea0f">
+  <img width="600" src="https://github.com/user-attachments/assets/304581ec-7403-4870-a4e6-172702a3fe8b" alt="Demo Desktop">
+</a>
 
 ### Experiencia en Mobile
 <a href="https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e">
