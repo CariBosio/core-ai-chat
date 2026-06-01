@@ -36,9 +36,9 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 <a href="https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e" target="_blank" rel="noopener noreferrer">
   <img width="300" src="https://github.com/user-attachments/assets/18c27a70-30cf-4588-b45e-17a0c486f04e" alt="Demo Mobile">
 </a>
-<small>
-  _Haz clic para ver el video (o presiona Ctrl + Clic para abrir en una pestaña nueva)._
-</small>
+<p>
+  <i><small>Haz clic para ver el video (o presiona Ctrl + Clic para abrir en una pestaña nueva).</small></i>
+</p>
 
 
 ## 📂 Estructura del Repositorio
