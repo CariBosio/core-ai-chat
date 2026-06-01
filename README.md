@@ -31,7 +31,9 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 https://github.com/user-attachments/assets/d32442ff-57a9-420e-b9b4-a317f493ea0f
 
 ### Experiencia en Mobile
-[![Demo Mobile](https://github.com/user-attachments/assets/18c27a70-30cf-4588-b45e-17a0c486f04e)](https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e)
+<a href="https://github.com/user-attachments/assets/238b9c5f-7bef-4c9a-a2b7-bdca0d71be3e">
+  <img width="300" src="https://github.com/user-attachments/assets/18c27a70-30cf-4588-b45e-17a0c486f04e" alt="Demo Mobile">
+</a>
 
 
 ## 📂 Estructura del Repositorio
