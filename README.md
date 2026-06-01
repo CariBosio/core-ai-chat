@@ -21,7 +21,7 @@ El objetivo fue crear un asistente que no solo sea funcional, sino **empático y
 
 ## 🧠 Características Principales
 *   **Validación de Identidad:** Flujo conversacional que asegura la autenticación del usuario antes de exponer datos.
-*   **Contexto Híbrido:** Integración inteligente que combina una **Base de Conocimientos (RAG)** para políticas generales y consultas dinámicas a *   **MySQL** para datos personales de empleados.
+*   **Contexto Híbrido:** Integración inteligente que combina una **Base de Conocimientos (RAG)** para políticas generales y consultas dinámicas a **MySQL** para datos personales de empleados.
 *   **UX Responsiva:** Interfaz optimizada para dispositivos móviles, garantizando fluidez incluso durante la interacción con teclados virtuales.
 
 ## 🏗️ Arquitectura del Flujo (n8n)
