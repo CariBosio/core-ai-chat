@@ -20,7 +20,7 @@ INSERT INTO empleados (id, nombre, email, departamento, puesto, fecha_ingreso, s
 (5, 'Pedro Santos', 'pedro.santos@empresa.com', 'Ventas', 'Ejecutivo de Ventas', '2022-08-01', 10, 8.0, 'hibrido'),
 (6, 'Fernanda Costa', 'fernanda.costa@empresa.com', 'Operaciones', 'Gerente de Operaciones', '2019-02-12', 30, 0.0, 'presencial'),
 (7, 'Rafael Mendez', 'rafael.mendez@empresa.com', 'TI', 'Analista de Soporte', '2023-06-10', 0, 15.5, 'hibrido'),
-(8, 'Juliana García', 'juliana.garcía@empresa.com', 'Ingeniería', 'Desarrolladora Front-end', '2021-09-25', 12, 0.0, 'remoto'),
+(8, 'Juliana García', 'juliana.garcia@empresa.com', 'Ingeniería', 'Desarrolladora Front-end', '2021-09-25', 12, 0.0, 'remoto'),
 (9, 'Bruno Alvarez', 'bruno.alvarez@empresa.com', 'Diseño', 'Diseñador UX/UI', '2022-04-18', 8, 3.5, 'hibrido'),
 (10, 'Camila Herrera', 'camila.herrera@empresa.com', 'Atención al Cliente', 'Analista de Atención al Cliente', '2024-01-05', 0, 0.0, 'hibrido'),
 (11, 'Eric Monné', 'eric.monne@chocalatech.com', 'Producto', 'Instructor de Cursos', '2024-01-15', 25, 8.0, 'hibrido');
