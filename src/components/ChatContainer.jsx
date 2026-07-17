@@ -9,8 +9,7 @@ import chocoStaticAvatarIcon from "../assets/Choco_frame.png";
 
 // const N8N_WEBHOOK_URL =
 //   "https://n8n-production-2cc1.up.railway.app/webhook/chat-agente";
-const N8N_WEBHOOK_URL =
-  "https://caribosio-mentis-n8n-backend.hf.space/webhook/chat-agente";
+const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL;
 
 export default function ChatContainer() {
   const [messages, setMessages] = useState([]);
