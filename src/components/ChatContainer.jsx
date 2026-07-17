@@ -7,8 +7,10 @@ import chocoVideoWelcome from "../assets/Animated_avatar_3.mp4";
 import chocoVideoGoodbye from "../assets/Choco_goodbye.mp4";
 import chocoStaticAvatarIcon from "../assets/Choco_frame.png";
 
+// const N8N_WEBHOOK_URL =
+//   "https://n8n-production-2cc1.up.railway.app/webhook/chat-agente";
 const N8N_WEBHOOK_URL =
-  "https://n8n-production-2cc1.up.railway.app/webhook/chat-agente";
+  "https://caribosio-mentis-n8n-backend.hf.space/webhook/chat-agente";
 
 export default function ChatContainer() {
   const [messages, setMessages] = useState([]);
